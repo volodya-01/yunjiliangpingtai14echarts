@@ -1,0 +1,560 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="utf-8">
+  <title>度量云开发_监测数据变化规律相似性分析</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="智态供水智能云平台,供水管网,WaterETMS,智态云,上海智态数据科技有限公司,事件预警平台,数据预测,数据清洗,趋势与噪声,水力模型,智能,压力监测点,分区计量,社区">
+  <meta name="description" content="">
+  <link rel="shortcut icon" href="images/logo/logo.jpg">
+  <link href="css/index_129ec4d.css" rel="stylesheet">
+  <link href="css/table_d131dbe.css" rel="stylesheet">
+  <link href="css/jquery-accordion-menu.css" rel="stylesheet">
+  <!--  导航条引用  -->
+  <link rel="stylesheet" href="css/common.bundle.style.css" />
+  <script src="http://push.zhanzhang.baidu.com/push.js"></script>
+  <script src="https://hm.baidu.com/hm.js?fdad4351b2e90e0f489d7fbfc47c8acf"></script>
+  <script src="Scripts/json2.js" type="text/javascript"></script>
+  <!--  <script src="Scripts/jquery-1.7.1.min.js" type="text/javascript"></script> -->
+  <script src="Scripts/ServiceJS.js" type="text/javascript"></script>
+
+  <script src="js/02.js" type="text/javascript"></script>
+  <script src="js/01.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(function () {
+      //���������л�
+      $("#demo-list li").click(function () {
+        $("#demo-list li.active").removeClass("active")
+        $(this).addClass("active");
+      })
+    })
+
+  </script>
+  <script>
+    var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?fdad4351b2e90e0f489d7fbfc47c8acf";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+
+        window.onload = function () {
+            $("#view1").hide();
+            $("#view2").hide();
+            $("#view3").hide();
+            getCookie("ZTCloud_loginuserkey");
+        }
+
+      
+    </script>
+
+  <style>
+    #C
+        {
+            clear: both;
+        }
+        
+        #C a
+        {
+            padding: 8px;
+            display: none;
+        }
+        
+        #li1:hover a
+        {
+            display: block;
+        }
+        
+        #ceshi2 li
+        {
+            list-style: none;
+        }
+    </style>
+  <!--  导航条引用  -->
+</head>
+
+<body class="ai-platform">
+
+  <div id="classContent">
+    <!--  趋势分析与噪声分析  -->
+    <h2 id="b0">
+      监测数据变化规律相似性分析</h2>
+    <div class="class_item" id="c0b0">
+      <div class="class_title">
+        概述</div>
+      <div class="class_desc">
+        监测数据变化规律相似性分析是根据两个监测点一段时间的历史数据，计算两个监测点变化规律的相似性。
+        主要用于压力监测数据和流量监测数据的相似性分析。</div>
+
+
+      <div class="class_desc" style="width: 954px; height: auto; background: none; padding-left: 0px;">
+        <img src="images/service/service_xiangsi.png" alt="" style="max-width: 100%;" />
+
+      </div>
+
+
+    </div>
+    <div class="class_item" id="c0b1">
+      <div class="class_title">
+        端口调用</div>
+      <div class="class_desc">
+        网址 <a href="http://112.64.170.158:9106/trand_noise.asmx" style="color: #349df0; font-style: italic;
+                            font-weight: bold; text-decoration: underline;">
+          <span style="color: #349df0; font-style: italic; font-weight: bold;">http://112.64.170.158:9100/api/Simpercal
+          </span>
+        </a>
+      </div>
+      <div class="class_desc">
+        方法名 <span style="color: #349df0; font-style: italic; font-weight: bold;">Sim_per_cal
+        </span>
+      </div>
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        【注意事项】</div>
+      <div class="class_desc">
+        需选取不少于一天的历史数据。<br />
+        两个监测点的历史数据需在时间上相对应。<br />
+        在进行处理之前，可以用window_wash_p或window_wash_f对历史窗口进行清洗，有利于提高计算效果。</div>
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        输入参数</div>
+      <div class="class_title" style="color: #349df0; font-size: 16px; font-weight: bold;
+                        margin-top: 40px; line-height: 60px;">
+      </div>
+      <table class="table table-bordered class_proper">
+        <tbody>
+          <tr class="class_proper_header hide">
+            <td colspan="3">
+              属性
+            </td>
+          </tr>
+          <tr class="class_proper_header">
+            <td>
+              变量名称
+            </td>
+            <td>
+              含义
+            </td>
+            <td>
+              维度
+            </td>
+            <td>
+              备注
+            </td>
+          </tr>
+          <tr class="class_proper_content">
+            <td>
+              Data_1
+            </td>
+            <td>
+              监测点1的历史数据
+            </td>
+            <td>
+              N*1
+            </td>
+            <td>
+
+            </td>
+          </tr>
+          <tr class="class_proper_content" style="background: #ffffff;">
+            <td>
+              Data_2
+            </td>
+            <td>
+              监测点2的历史数据
+            </td>
+            <td>
+              N*1
+            </td>
+            <td>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        输入的json格式为：</div>
+      <div class="class_title" style="font-size: 14px; font-weight: bold; margin-top: 40px;
+                        letter-spacing: 2;">
+      </div>
+      <!-- <div class="class_desc" style="width: 954px; height: auto; background: #30363e; padding-left: 20px;">
+                        <p style="line-height: 20px;">
+                            {</p>
+                        <br>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Day_count"</span> : <span style="color: #aeb454;">50</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"History_data"</span> :[ <span style="color: #96bad6;">
+                                1578</span> , <span style="color: #96bad6;">1454</span> ...... ] ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Smooth_n"</span> : <span style="color: #aeb454;">6</span>
+                            ,
+                        </p>
+                        <br>
+                        <p style="line-height: 20px;">
+                            }</p>
+                    </div>-->
+      <textarea class="class_desc" type="text" style="width: 954px; height: 200px; background: #30363e;
+                            padding: 10px; color: #96bad6;"
+        readonly="readonly">
+{
+      "Data_1":[0.323,0.325,.......],
+      "Data_2":[0.324,0.322,.......]
+}
+						 
+						 </textarea>
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        输出参数</div>
+      <div class="class_title" style="color: #349df0; font-size: 16px; font-weight: bold;
+                        margin-top: 40px; line-height: 60px;">
+      </div>
+      <table class="table table-bordered class_proper">
+        <tbody>
+          <tr class="class_proper_header hide">
+            <td colspan="3">
+              属性
+            </td>
+          </tr>
+          <tr class="class_proper_header">
+            <td>
+              变量名称
+            </td>
+            <td>
+              含义
+            </td>
+            <td>
+              维度
+            </td>
+            <td>
+              备注
+            </td>
+          </tr>
+          <tr class="class_proper_content" style="background: #ffffff;">
+            <td>
+              Sim_per
+            </td>
+            <td>
+              两个监测点历史数据相似百分比
+            </td>
+            <td>
+              1*1
+            </td>
+            <td>
+              范围：0~100，值越大表示越相似
+            </td>
+          </tr>
+          <tr class="class_proper_content" style="background: #ffffff;">
+            <td>
+              Direction
+            </td>
+            <td>
+              同向相似或反向相似
+            </td>
+            <td>
+              1*1
+            </td>
+            <td>
+              1：同向相似，表示两组监测数据变化规律相同
+              -1：反向相似，表示两组监测数据变化规律相反
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        输出的json格式为：</div>
+      <div class="class_title" style="font-size: 14px; font-weight: bold; margin-top: 40px;
+                        letter-spacing: 2;">
+      </div>
+      <!-- <div class="class_desc" style="width: 954px; height: auto; background: #30363e; padding-left: 20px;">
+                        <p style="line-height: 20px;">
+                            {</p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Cycle_data"</span> :[ <span style="color: #96bad6;">NaN</span>
+                            , <span style="color: #96bad6;">NaN</span> ,<span style="color: #96bad6;">NaN</span>,<span
+                                style="color: #96bad6;">NaN</span>,<span style="color: #96bad6;">-132.19310477804584</span>,
+                            ...... ] ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Trand"</span> :[ <span style="color: #96bad6;">1619.243</span>
+                            , <span style="color: #96bad6;">1619.23488803727</span> , ...... ] ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Noise"</span> :[ <span style="color: #96bad6;">NaN</span>
+                            , <span style="color: #96bad6;">NaN</span> ,<span style="color: #96bad6;">NaN</span>,<span
+                                style="color: #96bad6;">NaN</span>,<span style="color: #96bad6;">NaN</span>,<span
+                                    style="color: #96bad6;">NaN</span>,<span style="color: #96bad6;">75</span>,
+                            ...... ] ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Vary_day"</span> : <span style="color: #aeb454;">-2.4067157320535</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Noise_std"</span> : <span style="color: #aeb454;">40.44509</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px;">
+                            }</p>
+                    </div>-->
+      <textarea class="class_desc" type="text" style="width: 954px; height: 200; background: #30363e;
+                            padding: 10px; color: #96bad6;"
+        readonly="readonly">
+{
+      "Sim_per":87.6,
+      "Direction":1
+}
+					</textarea>
+
+
+
+    </div>
+    <!--  趋势分析与噪声分析 -->
+    <!--趋势分析与噪声分析代码调试区-->
+    <div class="class_item" id="c0b2">
+      <div class="class_title">
+        在线测试</div>
+      <form>
+        <div class="tiaoshi_head">
+          <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+            编辑您的代码：</div>
+          <textarea id="demo" class="class_desc" type="text" style="width: 954px; height: 480px; background: #30363e;
+                            padding: 10px; color: #96bad6;"
+            id="Textarea">
+{"Data_1":[214,203,208,206,204,192,208,195,190,215,188,192,194,192,226,208,212,201,208,194,212,186,190,201,186,190,185,194,190,212,194,188,190,179,170,174,161,185,156,156,163,172,170,170,161,168,154,148,139,127,141,123,119,121,127,121,118,132,123,112,181,172,150,141,186,181,195,304,250,208,197,192,170,248,248,313,300,273,288,266,279,271,391,378,299,324,271,282,288,308,311,340,364,344,351,405,414,423,447,384,382,402,404,422,409,422,391,420,409,431,407,393,371,344,353,371,371,382,384,384,380,362,355,400,414,337,299,326,340,317,302,257,228,248,257,248,264,230,275,291,331,297,322,360,347,329,273,271,277,252,277,308,335,324,317,335,315,295,313,342,342,309,311,315,315,333,291,291,286,291,282,268,291,291,290,293,299,317,291,300,302,277,326,248,241,268,241,270,282,266,262,228,228,295,308,275,244,282,313,302,273,275,300,313,286,291,302,291,320,320,335,328,364,411,373,371,331,362,362,338,355,311,344,364,340,351,346,351,355,369,375,385,347,362,394,346,333,311,302,308,322,340,286,302,302,288,295,318,344,355,373,384,318,322,328,322,311,295,351,279,275,299,286,317,308,317,284,273,277,277,270,246,271,308,271,286,284,253,246,230,199,201,230,199,208,223,215,230,223,208,203,214,212,195,179,186,204,190,215,212,192,188,181,177,148,141,174,172,206,212,181,179,179,163,156,156,168,121,119,109,96,96,112,89,81,114,128,141,138,112,114,112,123,128,139,121,125,101,101,94,87,98,92,101,132,132,138,123,252,176,168,157,161,212,237,252,246,221,217,185,203,199,255,313,311,315,288,306,277,391,331,320,353,364,364,398,344,409,356,373,384,405,427,422,440,452,411,492,431,438,461,461,442,460,423,445,469,438,429,442,451,427,393,382,411,404,402,422,382,414,393,404,355,398,429,438,465,407,469,407,391,384,380,380,362,375,371,382,404,371,358,382,384,404,382,362,389,394,407,398,393,402,371,356,366,402,389,353,364,347,331,391,396,344,344,353,335,364,338,337,353,382,382,331,300,308,297,295,308,304,306,333,288,299,320,333,328,322,309,315,291,353,353,335,349,355,353,329,317,308,315,306,313,315,337,315,335,329,355,351,318,382,358,342,360,344,320,311,342,342,328,315,309,324,313,311,335,311,306,277,286,309,333,349,353,331,322,308,266,302,290,244,277,320,302,304,309,302,311,331,349,335,322,322,322,291,270,273,271,302,306,284,288,271,331,221,253,244,271,277,295,271,270,257,270,248,221,217,228,224,232,268,257,235,188,201,203,188,179,168,199,192,199,194,203,219,201,204,192,203,172,188,186,201,188,170,161,161,152,168,159,152,161,176,181,166,181,145,161,174,141,154,156,148,150,141,150,141,152,150,145,206,168,179,156,161,130,145,154,161,138,145,179,150,161,152,168,183,172,147,139,165,190,255,280,176,185,204,241,237,237,266,242,248,280,290,262,275,302,233,295,291,273,295,282,344,335,356,331,311,346,333,335,380,422,431,414,411,382,382,347,378,367,346,404,366,369,389,349,400,431,393,396,393,364,382,431,442,404,378,407,378,353,362,308,311,309,261,313,333,337,344,344,351,347,356,391,432,393,375,387,391,290,275,299,315,351,337,362,324,326,337,315,331,347,308,344,400,387,396,351,362,291,373,311,351,315,324,309,271,308,295,322,320,302,299,369,293,344,322,364,360,342,304,282,242,261,280,257,257,241,248,262,282,308,290,286,275,284,291,382,331,320,335,295,351,351,351,351,340,340,349,351,311,356,355,331,333,338,318,335,320,340,414,326,311,302,271,297,300,311,302,302,315,322,324,221,282,331,328,293,297,366,340,331,335,366,333,351,324,320,291,275,280,282,273,300,324,284,257,270,266,242,252,291,270,273,286,232,259,273,262,261,273,288,262,273,262,262,221,261,255,257,246],"Data_2":[197,186,183,179,186,172,188,163,176,188,163,163,168,166,195,179,186,176,186,166,192,159,166,161,157,176,161,152,143,163,139,157,176,152,157,150,139,159,138,136,136,152,139,145,139,139,138,127,119,107,123,96,85,94,96,90,85,103,90,87,103,109,100,94,143,101,103,197,145,127,118,139,141,159,201,268,255,188,163,165,232,223,237,252,241,261,199,226,206,224,221,252,257,235,241,286,271,266,291,239,266,279,286,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,259,217,217,176,177,199,206,206,228,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,208,284,279,286,290,261,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,282,283,284,285,286,275,275,302,271,273,268,309,347,329,324,306,290,288,313,304,304,313,324,324,304,309,318,279,270,290,288,268,270,279,311,299,302,290,286,302,297,279,299,302,275,279,266,268,264,324,302,280,261,257,264,284,248,280,261,223,228,217,237,268,257,228,232,242,226,277,232,248,259,257,266,255,248,255,221,259,273,261,266,309,295,262,282,250,244,255,255,248,273,271,280,261,261,255,259,250,235,244,288,268,266,246,261,253,268,266,261,262,264,262,290,244,232,228,242,237,241,230,255,239,257,242,230,255,232,210,244,275,266,270,271,261,261,237,252,259,241,259,233,244,224,237,237,252,248,226,228,215,232,183,228,208,226,246,228,214,208,188,219,190,181,179,221,197,210,226,228,210,152,186,161,147,141,139,172,166,176,176,154,166,148,134,150,172,141,166,166,176,165,141,138,147,141,138,136,118,143,152,145,141,156,119,118,139,85,107,118,118,132,128,134,116,128,136,127,114,138,166,134,141,123,119,139,127,109,110,118,89,105,60,89,80,94,105,100,119,127,197,212,141,176,179,170,174,157,226,139,163,176,186,185,168,179,188,248,239,242,257,235,242,279,266,257,270,302,279,266,286,248,259,293,286,268,271,241,271,290,255,250,270,259,277,271,257,237,313,326,299,293,244,248,264,279,237,237,248,235,246,248,237,253,212,230,235,253,253,237,248,290,291,299,270,297,282,302,253,194,210,237,270,313,290,308,273,262,259,250,270,271,255,255,252,266,268,210,233,255,290,271,232,199,195,186,228,237,221,302,288,232,268,297,259,282,219,270,266,228,201,201,186,186,224,197,204,204,195,217,235,244,219,228,223,219,244,273,275,230,241,230,271,309,309,313,306,297,309,302,297,318,317,282,291,299,282,290,275,309,290,252,237,250,237,268,242,255,259,266,277,257,279,215,237,299,291,248,248,261,271,264,273,297,266,290,266,288,266,239,248,248,241,217,226,233,221,214,195,190,181,208,197,192,203,185,210,217,217,217,233,257,235,228,221,230,199,241,233,244,219]}
+    
+						 </textarea>
+          <div class="tiaoshi_head02">
+            <button id="echart" type="button" onmouseover="this.style.Color='#0073eb';" class="tiaoshi_head02_btn">
+              点击运行</button>
+          </div>
+        </div>
+      </form>
+      <div class="class_title" style="height: 40px;">
+      </div>
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        运行结果：</div>
+      <textarea class="class_desc" type="text" style="width: 954px; height: 480px; background: #30363e;
+                            padding: 10px; color: #96bad6;"
+        id="Textarea1">
+ { TimeStamp : Flow }, { TimeStamp :  Flow }, { TimeStamp :  Flow }, ...... 
+					</textarea>
+    </div>
+    <!--趋势分析与噪声分析代码调试区-->
+    <div id="main" style="width: 1140px; height: 480px;margin: 0 0px 0 -68px">
+    </div>
+    <div style="width: 954px; height: 300px;">
+    </div>
+  </div>
+
+</body>
+<!-- ECharts单文件引入 -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+<script>
+  //var str = document.getElementById("demo").value;
+  var v = '';
+
+  var echart = document.getElementById("echart").addEventListener("click",
+    function run() {
+      //获取前台输入数据
+      //var str = document.getElementById("Textarea").value;
+      var str = document.getElementById("demo").value;
+      console.log(str)
+      var st = str.replace(/\"/g, "\\\"")
+
+      function trim(st) { //删除左右两端的空格
+
+        return t0 = st.replace(/(^\s*)|(\s*$)/g, "");
+      }
+      trim(st)
+      console.log(st)
+      console.log(t0)
+
+      function strToJson(str) {
+        var json = eval('(' + str + ')');
+        return json
+      }
+      json = strToJson(str)
+      console.log(json)
+      arr = json.Data_1
+      arr2 = json.Data_2
+      console.log(arr)
+      var v;
+      var di;
+      var vdi
+      //获取后台数据
+      //var b = []; //流量（实际用来盛放Y坐标值）
+      $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        async: false, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url: "http://112.64.170.158:9100/api/Simpercal/Sim_per_cal", //请求发送到TestServlet处
+        /*   data: "{Json:'" + t0 + "'}", */
+        data: str,
+        dataType: "json", //返回数据形式为json
+        success: function getnum(result) {
+          console.log(result)
+          /*  var Direction = result.Direction;
+           var Sim_per = result.Sim_per;
+           var res = {
+             Direction,
+             Sim_per
+           } */
+          $('#Textarea1').val("{" + "Direction:" + result.Direction + "," + "Sim_per:" + result.Sim_per + "}");
+          v = strToJson(result.Sim_per)
+          di = result.Direction
+          console.log(v)
+          vdi = "相似度" + ":" + v + "" + "" + "" + "方向" + ":" + di
+
+        },
+        error: function (errorMsg) {
+          //请求失败时执行该函数
+          console.log(errorMsg)
+          alert("sorry，请求后台数据失败!");
+          myChart.hideLoading();
+        }
+      })
+      //前后台数据整合
+      cc = arr.concat(v),
+        cc2 = arr2.concat(v),
+        d = arr.length;
+      d2 = arr2.length;
+      var e = [];
+      for (var i = 0; i < cc.length; i++) {
+        e.push(i)
+      }
+      var e2 = [];
+      for (var i = 0; i < cc2.length; i++) {
+        e2.push(i)
+      }
+      //初始化Echarts
+      var myChart = echarts.init(document.getElementById('main'));
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+          text: '监测数据变化规律相似性分析',
+          padding: [0, 0, 4, 68],
+          /*  subtext: vdi, */
+          subtextStyle: {
+            color: 'red',
+            fontFamily: 'Microsoft YaHei',
+            verticalAlign: 'middle',
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross'
+          }
+        },
+        legend: {
+          data: ['数据1', '数据2']
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: e
+        },
+
+        /*  yAxis: {
+           type: 'value',
+           //splitLine: { show: false },//去除网格线
+           axisLabel: {
+             formatter: '{value}'
+           },
+           axisPointer: {
+             snap: true
+           }
+         }, */
+        yAxis: {
+          type: 'value',
+          //splitLine: { show: false },//去除网格线
+          axisLabel: {
+            formatter: '{value}'
+          },
+          axisPointer: {
+            snap: true
+          },
+          name: 'm3/h',
+          /* splitNumber: '4', */
+          //splitLine: { show: false },//去除网格线
+          axisLabel: {
+            formatter: '{value}'
+          },
+          axisPointer: {
+            snap: true
+          },
+          nameGap: '8',
+          nameTextStyle: {
+            align: 'center',
+            verticalAlign: 'top',
+            color: 'black',
+            padding: [33, 6, 4, 0],
+            shadowOffsety: 6,
+            fontFamily: 'Microsoft YaHei',
+            /* fontWeight: 'bold', */
+            /* fontStyle: 'italic' */
+
+          },
+        },
+        series: [{
+            name: '数据1',
+            type: 'line',
+            smooth: true,
+            /* areaStyle: {
+            normal: {}
+            }, */
+            symbol: 'triangle',
+            symbolSize: 60,
+            itemStyle: {
+              normal: {
+                borderWidth: 3,
+                borderColor: 'yellow',
+                color: 'green',
+                opacity: 0.3
+              }
+            },
+            data: arr,
+            symbol: 'roundRect',
+            symbolSize: 1,
+          },
+          {
+            name: '数据2',
+            type: 'line',
+            smooth: true,
+            areaStyle: {},
+            data: arr2,
+            symbol: 'roundRect',
+            symbolSize: 0.1,
+            /* areaStyle: {
+            normal: {
+            color: 'red',
+            opacity: 0.3
+            }
+            }, */
+            itemStyle: {
+              normal: {
+                lineStyle: {
+                  width: 1.5, //折线宽度
+                  color: "red", //折线颜色
+                  opacity: 0.8
+                }
+              }
+            },
+          },
+        ]
+      };
+
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,645 @@
+<html lang="zh-cn">
+
+<head>
+  <meta charset="utf-8">
+  <title>度量云开发_批量流量监测数据清洗</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="智态供水智能云平台,供水管网,WaterETMS,智态云,上海智态数据科技有限公司,事件预警平台,数据预测,数据清洗,趋势与噪声,水力模型,智能,压力监测点,分区计量,社区">
+  <meta name="description" content="">
+  <link rel="shortcut icon" href="images/logo/logo.jpg">
+  <link href="css/index_129ec4d.css" rel="stylesheet">
+  <link href="css/table_d131dbe.css" rel="stylesheet">
+  <link href="css/jquery-accordion-menu.css" rel="stylesheet">
+  <!--  导航条引用  -->
+  <link rel="stylesheet" href="css/common.bundle.style.css">
+  <script src="http://push.zhanzhang.baidu.com/push.js"></script>
+  <script src="https://hm.baidu.com/hm.js?fdad4351b2e90e0f489d7fbfc47c8acf"></script>
+  <script src="Scripts/json2.js" type="text/javascript"></script>
+  <script src="Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+  <script src="Scripts/ServiceJS.js" type="text/javascript"></script>
+
+
+  <script src="js/02.js" type="text/javascript"></script>
+  <script src="js/01.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function () {
+      jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+
+    });
+
+    $(function () {
+      //���������л�
+      $("#demo-list li").click(function () {
+        $("#demo-list li.active").removeClass("active")
+        $(this).addClass("active");
+      })
+    })
+
+  </script>
+
+  <script src="js/02.js" type="text/javascript"></script>
+  <script src="js/01.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function () {
+      jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+
+    });
+
+    $(function () {
+      //���������л�
+      $("#demo-list li").click(function () {
+        $("#demo-list li.active").removeClass("active")
+        $(this).addClass("active");
+      })
+    })
+
+  </script>
+
+  <script>
+    var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?fdad4351b2e90e0f489d7fbfc47c8acf";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+
+        window.onload = function () {
+            $("#view1").hide();
+            $("#view2").hide();
+            $("#view3").hide();
+            getCookie("ZTCloud_loginuserkey");
+        }
+
+        function runFun() {
+            var aa = Trim($("#Textarea").val(), "g");
+            var bb = getStr(aa, "\"Day_count");
+            var cc = getStr(bb, "\"History_window");
+            var dd = getStr(cc, "\"Tolerance");
+            var ee = getStr(dd, "\"Val_max");
+            var ff = getStr(ee, "\"Val_min");
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "http://112.64.170.158:9100/Data_wash.asmx/DataWash",
+                data: "{Json:'" + ff + "'}",
+                dataType: 'json',
+                success: function (result) {
+                    $('#Textarea1').val(result.d);
+                }
+            });
+        }
+    </script>
+  <style>
+    #C
+        {
+            clear: both;
+        }
+        
+        #C a
+        {
+            padding: 8px;
+            display: none;
+        }
+        
+        #li1:hover a
+        {
+            display: block;
+        }
+        
+        #ceshi2 li
+        {
+            list-style: none;
+        }
+    </style>
+  <!--  导航条引用  -->
+</head>
+
+<body class="ai-platform">
+
+  <div id="classContent">
+    <!--  数据清洗  -->
+    <h2 id="b0">
+      批量流量监测数据清洗</h2>
+    <div class="class_item" id="c0b0">
+      <div class="class_title">
+        概述</div>
+      <div class="class_desc">
+        批量流量监测数据清洗是对一段时间的流量监测数据进行清洗，删除明显超出正常范围的数据，对短时间的缺失数据进行补充，如果长时间数据缺失，不对其进行补充。<br />
+        历史窗口流量监测数据清洗主要用于分区用水量计算、监测数据趋势分析等功能的前期数据处理。</div>
+
+      <div class="class_desc" style="width: 954px; height: auto; background: none; padding-left: 0px;">
+        <img src="images/service/service_piliangliuliangqingxi.png" alt="" style="max-width: 100%;" />
+
+      </div>
+      <div class="class_desc">
+        单个时刻流量监测数据清洗与历史窗口流量监测数据清洗的对比见下表:
+      </div>
+      <table class="table table-bordered class_proper">
+        <tbody>
+          <tr class="class_proper_header hide">
+            <td colspan="3">
+              属性
+            </td>
+          </tr>
+          <tr class="class_proper_header">
+            <td>
+              单个时刻流量监测数据清洗
+            </td>
+            <td>
+              历史窗口流量监测数据清洗
+            </td>
+          </tr>
+          <tr class="class_proper_content">
+            <td>
+              每次计算清洗一个时间点的数据
+            </td>
+            <td>
+              对所有输入的历史数据进行清洗
+            </td>
+          </tr>
+          <tr class="class_proper_content" style="background: #ffffff;">
+            <td>
+              输出数据状态：正常、缺失或异常
+            </td>
+            <td>
+              不输出数据状态
+            </td>
+          </tr>
+          <tr class="class_proper_content">
+            <td>
+              数据缺失时，根据历史数据规律对其进行补充
+            </td>
+            <td>
+              对短时间的数据缺失进行补充，如果长时间数据缺失，不对其进行补充
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="class_item" id="c0b1">
+      <div class="class_title">
+        端口调用</div>
+      <div class="class_desc">
+网址 <a href="http://112.64.170.158:9100/api/Windowwashf/Window_wash_f" style="color: #349df0; font-style: italic;
+                            font-weight: bold; text-decoration: underline;">
+          <span style="color: #349df0; font-style: italic; font-weight: bold;">http://112.64.170.158:9100/api/Windowwashf
+          </span>
+        </a>
+      </div>
+      <div class="class_desc">
+        方法名 <span style="color: #349df0; font-style: italic; font-weight: bold;">Window_wash_f
+        </span>
+      </div>
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        输入参数</div>
+      <div class="class_title" style="color: #349df0; font-size: 16px; font-weight: bold;
+                        margin-top: 40px; line-height: 60px;">
+      </div>
+      <table class="table table-bordered class_proper">
+        <tbody>
+          <tr class="class_proper_header hide">
+            <td colspan="3">
+              属性
+            </td>
+          </tr>
+          <tr class="class_proper_header">
+            <td>
+              变量名称
+            </td>
+            <td>
+              含义
+            </td>
+            <td>
+              维度
+            </td>
+            <td>
+              备注
+            </td>
+          </tr>
+          <tr class="class_proper_content">
+            <td>
+              History_window
+            </td>
+            <td>
+              输入历史窗口
+            </td>
+            <td>
+              N*1
+            </td>
+            <td>
+              可以取任意长一段时间的历史数据
+            </td>
+          </tr>
+          <tr class="class_proper_content" style="background: #ffffff;">
+            <td>
+              Day_count
+            </td>
+            <td>
+              历史窗口数据天数
+            </td>
+            <td>
+              1*1
+            </td>
+            <td>
+
+            </td>
+          </tr>
+          <tr class="class_proper_content">
+            <td>
+              Tolerance
+            </td>
+            <td>
+              容差
+            </td>
+            <td>
+              1*1
+            </td>
+            <td>
+              建议取值[100,500]
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        输入的json格式为：</div>
+      <div class="class_title" style="font-size: 14px; font-weight: bold; margin-top: 40px;
+                        letter-spacing: 2;">
+      </div>
+      <!--<div class="class_desc" style="width: 954px; height: auto; background: #30363e; padding-left: 20px;">
+                        <p style="line-height: 20px;">
+                            {</p>
+                        <br>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Day_count"</span> : <span style="color: #aeb454;">3</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"History_window"</span> :[ <span style="color: #96bad6;">
+                                157</span> , <span style="color: #96bad6;">141</span> ...... ]
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Step_n"</span> : <span style="color: #aeb454;">4</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Tolerance"</span> : <span style="color: #aeb454;">500</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Val_max"</span> : <span style="color: #aeb454;">99999</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"Val_min"</span> : <span style="color: #aeb454;">-99999</span>
+                            ,
+                        </p>
+                        <br>
+                        <p style="line-height: 20px;">
+                            }</p>
+                    </div>-->
+      <textarea class="class_desc" type="text" style="width: 954px; height: 240px; background: #30363e;
+                            padding: 10px; color: #96bad6;"
+        readonly="readonly">
+  {
+        "Day_count" : 3 , 
+        "History_window" :[  157 , 141 ...... ] ,
+        "tolerance":500
+     }
+						 </textarea>
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        输出参数</div>
+      <div class="class_title" style="color: #349df0; font-size: 16px; font-weight: bold;
+                        margin-top: 40px; line-height: 60px;">
+      </div>
+      <table class="table table-bordered class_proper">
+        <tbody>
+          <tr class="class_proper_header hide">
+            <td colspan="3">
+              属性
+            </td>
+          </tr>
+          <tr class="class_proper_header">
+            <td>
+              变量名称
+            </td>
+            <td>
+              含义
+            </td>
+            <td>
+              维度
+            </td>
+            <td>
+              备注
+            </td>
+          </tr>
+          <tr class="class_proper_content" style="background: #ffffff;">
+            <td>
+              History_window_out
+            </td>
+            <td>
+              输出历史窗口
+            </td>
+            <td>
+              N*1
+            </td>
+            <td>
+
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        输出的json格式为：</div>
+      <div class="class_title" style="font-size: 14px; font-weight: bold; margin-top: 40px;
+                        letter-spacing: 2;">
+      </div>
+      <!-- <div class="class_desc" style="width: 954px; height: auto; background: #30363e; padding-left: 20px;">
+                        <p style="line-height: 20px;">
+                            {</p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"ErrorCode"</span>:<span style="color: #aeb454;">0</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"ErrorMessage"</span>:<span style="color: #aeb454;"></span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            <span style="color: #96bad6;">"RData"</span>:</p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            [</p>
+                        <p style="line-height: 20px; padding-left: 40px;">
+                            {
+                        </p>
+                        <p style="line-height: 20px; padding-left: 60px;">
+                            <span style="color: #96bad6;">"Data_out"</span>:<span style="color: #aeb454;">224</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 60px;">
+                            <span style="color: #96bad6;">"ErrorCode"</span>:<span style="color: #aeb454;">0</span>
+                            ,
+                        </p>
+                        <p style="line-height: 20px; padding-left: 40px;">
+                            }
+                        </p>
+                        <p style="line-height: 20px; padding-left: 20px;">
+                            ]</p>
+                        <br>
+                        <br>
+                        <p style="line-height: 20px;">
+                            }</p>
+                    </div>-->
+      <textarea class="class_desc" type="text" style="width: 954px; height: 200; background: #30363e;
+                            padding: 10px; color: #96bad6;"
+        readonly="readonly">
+{
+      "History_window_out":[157,141,.......]
+}
+					</textarea>
+
+
+
+
+
+
+    </div>
+    <!--  数据清洗 -->
+    <!--数据清洗代码调试区-->
+    <div class="class_item" id="c0b2">
+      <div class="class_title">
+        在线测试</div>
+      <form>
+        <div class="tiaoshi_head">
+          <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+            编辑您的代码：</div>
+          <textarea id="demo" class="class_desc" type="text" style="width: 954px; height: 480px; background: #30363e;
+                            padding: 10px; color: #96bad6;"
+            id="Textarea">
+{"Day_count":3,"History_window_in":[157,141,136,143,163,166,165,150,156,130,0,141,154,145,148,132,138,101,103,125,118,112,132,118,105,103,114,119,107,119,101,121,123,107,103,130,123,125,123,141,125,119,109,119,109,110,0,118,107,125,121,121,136,128,121,116,116,150,174,143,141,161,241,326,262,0,215,206,197,223,286,333,293,262,252,279,302,264,280,308,304,295,277,273,257,322,344,264,248,277,313,271,271,311,351,371,432,331,326,337,355,324,351,297,282,324,318,369,367,302,380,324,0,322,371,353,378,349,286,309,355,360,286,328,346,340,346,326,315,358,385,329,320,315,331,317,322,342,322,326,0,380,313,0,306,313,353,313,317,318,311,322,346,442,329,355,382,344,371,380,389,353,318,342,344,342,333,364,331,355,344,411,360,297,326,286,324,367,366,366,358,364,288,295,291,308,320,353,362,333,318,328,331,286,266,286,252,297,288,279,293,266,280,313,337,387,369,364,373,382,376,367,351,342,324,317,326,326,324,344,366,317,286,282,291,299,331,0,313,262,253,228,277,291,300,297,279,286,253,241,259,224,277,280,273,264,206,248,233,228,214,257,264,255,271,297,299,273,288,302,353,300,268,295,302,328,306,299,0,266,257,233,268,235,248,219,232,219,217,214,226,219,210,168,181,181,147,174,192,212,223,0,183,172,161,161,166,176,128,147,127,145,156,177,172,166,174,174,181,179,150,170,170,194,195,201,190,170,181,170,168,166,177,185,166,179,188,179,174,185,177,197,239,188,181,179,165,161,181,176,181,161,125,141,127,206,181,192,237,286,275,277,232,232,203,270,306,266,331,297,413,407,297,373,328,295,324,329,351,315,286,279,322,360,322,266,384,447,416,413,431,490,489,434,451,460,436,422,436,400,384,440,460,443,420,422,431,454,461,409,402,481,467,443,420,0,356,422,353,405,364,342,360,337,366,375,342,353,322,333,317,331,344,353,369,340,375,393,382,NaN,NaN,NaN,371,373,373,432,414,463,393,369,398,432,461,342,382,364,413,384,414,364,375,364,353,389,306,400,0,382,0,347,413,413,405,335,364,393,340,362,389,411,442,409,318,317,405,552,518,413,449,335,384,335,416,346,329,293,297,277,291,279,286,0,295,300,280,317,302,299,295,324,320,331,333,338,335,376,360,362,338,342,380,384,364,385,355,311,329,331,311,342,0,346,340,353,346,333,335,335,324,356,356,342,309,328,308,362,382,382,371,369,371,338,333,376,382,427,416,398,405,366,335,299,328,322,320,309,313,347,306,275,266,252,237,257,237,0,282,252,262,224,232,223,201,201,203,201,181,177,161,181,161,190,170,179,181,199,179,217,230,239,214,219,208,204,199,0,212,201,199,179,192,176,179,188,192,201,194,201,176,181,177,161,132,179,181,181,174,177,170,141,183,203,201,172,183,183,154,161,143,143,152,177,186,208,199,201,214,302,252,233,259,271,266,286,212,290,0,246,290,262,268,320,277,329,322,290,275,322,291,304,328,335,331,338,402,389,413,422,364,402,443,432,393,0,467,460,431,438,411,429,425,400,400,402,409,391,0,411,405,416,407,396,398,394,391,371,396,393,373,371,382,364,351,384,378,317,382,340,344,338,360,355,335,335,353,362,342,351,306,337,344,335,349,362,366,355,362,349,385,342,299,291,295,302,300,282,299,266,275,273,297,315,311,282,378,275,302,279,297,295,288,264,261,291,221,277,264,280,286,268,288,280,295,291,306,293,277,277,322,315,351,328,317,293,277,288,286,324,324,306,329,353,320,295,300,315,293,270,279,324,317,311,295,286,291,306,282,295,280,291,320,322,297,398,340,280,0,262,295,262,315,328,277,299,255,275,322,304,315,286,315,304,309,297,349,328,302,295,293,288,311,295,262,277,290,282,315,302,306,280,273,290,311,349,306,262,270,262,309,315,293,279,257,230,248,214,223,232,226,224,214,203,208,206],"Tolerance":50}
+						 </textarea>
+          <div class="tiaoshi_head02">
+            <button id="echart" type="button" onmouseover="this.style.Color='#0073eb';" class="tiaoshi_head02_btn"
+              onclick="runFun()">
+              点击运行</button>
+          </div>
+        </div>
+      </form>
+      <div class="class_title" style="height: 40px;">
+      </div>
+      <div class="class_title" style="font-size: 16px; font-weight: bold; margin-top: 40px;">
+        运行结果：</div>
+      <textarea class="class_desc" type="text" style="width: 954px; height: 480px; background: #30363e;
+                        padding: 10px; color: #96bad6;"
+        id="Textarea1">
+ { TimeStamp : Flow }, { TimeStamp :  Flow }, { TimeStamp :  Flow }, ...... 
+					</textarea>
+    </div>
+    <!--数据清洗代码调试区-->
+    <div id="main" style="width: 1140px; height: 480px;margin: 0 0px 0 -68px">
+    </div>
+    <div style="width: 954px; height: 300px;">
+    </div>
+  </div>
+
+</body>
+<!-- ECharts单文件引入 -->
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+<script>
+  //var str = document.getElementById("demo").value;
+  var v = '';
+
+  var echart = document.getElementById("echart").addEventListener("click",
+    function run() {
+      //获取前台输入数据
+      //var str = document.getElementById("Textarea").value;
+      var str = document.getElementById("demo").value;
+      console.log(str)
+      var st = str.replace(/\"/g, "\\\"")
+
+      function trim(st) { //删除左右两端的空格
+
+        return t0 = st.replace(/(^\s*)|(\s*$)/g, "");
+      }
+      trim(st)
+      console.log(st)
+      console.log(t0)
+
+      function strToJson(str) {
+        var json = eval('(' + str + ')');
+        return json
+      }
+      json = strToJson(str)
+      console.log(json)
+      arr = json.History_window_in
+      console.log(arr)
+      //获取后台数据
+      //var b = []; //流量（实际用来盛放Y坐标值）
+      $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        async: false, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url: "http://112.64.170.158:9100/api/Windowwashf/Window_wash_f", //请求发送到TestServlet处
+        /*   data: "{Json:'" + t0 + "'}", */
+        data: str,
+        dataType: "json", //返回数据形式为json
+        success: function getnum(result) {
+          console.log(result)
+          //alert(result);
+          // alert(Object.prototype.toString.call(result));
+          v = result.History_window_out
+          $('#Textarea1').val("{" + '"History_window_out"' + ":" + "[" + v + "]" + "}");
+
+        },
+        error: function (errorMsg) {
+          //请求失败时执行该函数
+          console.log(errorMsg)
+          alert("sorry，请求后台数据失败!");
+          myChart.hideLoading();
+        }
+      })
+      //前后台数据整合
+      /* cc = arr.concat(v), */
+      d = arr.length;
+      d2 = v.length;
+      e = [];
+      for (var i = 0; i < arr.length; i++) {
+        e.push(i)
+      }
+      e2 = [];
+      for (var i = 0; i < v.length; i++) {
+        e2.push(i)
+      }
+      //初始化Echarts
+      var myChart = echarts.init(document.getElementById('main'));
+      // 指定图表的配置项和数据
+      var option = {
+        title: {
+          text: '批量流量监测数据清洗',
+          padding: [0, 0, 4, 68],
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross'
+          }
+        },
+        legend: {
+          data: ['历史数据', '清洗后数据']
+        },
+        xAxis: [{
+            type: 'category',
+            boundaryGap: false,
+            data: e
+          },
+          {
+            type: 'category',
+            boundaryGap: false,
+            /* data: e */
+          },
+        ],
+
+        /* yAxis: {
+          type: 'value',
+          //splitLine: { show: false },//去除网格线
+          axisLabel: {
+            formatter: '{value}'
+          },
+          axisPointer: {
+            snap: true
+          }
+        },
+ */
+        yAxis: {
+          type: 'value',
+          //splitLine: { show: false },//去除网格线
+          axisLabel: {
+            formatter: '{value}'
+          },
+          axisPointer: {
+            snap: true
+          },
+          name: 'm3/h',
+          /* splitNumber: '4', */
+          //splitLine: { show: false },//去除网格线
+          axisLabel: {
+            formatter: '{value}'
+          },
+          axisPointer: {
+            snap: true
+          },
+          nameGap: '8',
+          nameTextStyle: {
+            align: 'center',
+            verticalAlign: 'top',
+            color: 'black',
+            padding: [33, 6, 4, 0],
+            shadowOffsety: 6,
+            fontFamily: 'Microsoft YaHei',
+            /* fontWeight: 'bold', */
+            /* fontStyle: 'italic' */
+
+          },
+        },
+        series: [{
+            name: '清洗后数据',
+            type: 'line',
+            smooth: true,
+            /* areaStyle: {
+            normal: {}
+            }, */
+            symbol: 'triangle',
+            symbolSize: 60,
+            itemStyle: {
+              normal: {
+                borderWidth: 3,
+                borderColor: 'yellow',
+                color: 'green',
+                opacity: 0.3
+              }
+            },
+            data: v,
+            symbol: 'roundRect',
+            symbolSize: 1,
+          },
+          {
+            name: '历史数据',
+            type: 'line',
+            smooth: true,
+            areaStyle: {},
+            data: arr,
+            symbol: 'roundRect',
+            symbolSize: 0.1,
+            /*  areaStyle: {
+               normal: {
+                 color: 'red',
+                 opacity: 0.3
+               }
+             }, */
+            itemStyle: {
+              normal: {
+                lineStyle: {
+                  width: 1.5, //折线宽度
+                  color: "red", //折线颜色
+                  opacity: 0.8
+                }
+              }
+            },
+          },
+
+        ]
+      };
+
+
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+
+    });
+
+</script>
+
+</html>
